@@ -1,0 +1,271 @@
+DAY 1:
+
+1.First we create data base by using create database command to store table in it.
+syntax-create database db_name.
+
+2.we can delete database using drop database command.
+syntax-drop database db_name.
+
+3.now we create table using create table db_name.table_name.
+syntax-create table db_name.table_name
+note:here db_nameis refering to the database where table to be created.
+
+4.we create column inside table.
+syntax-create table db_name.table_name(
+    table_nameID INT NOT NULL AUTO_INCREMENT,
+    table_nameTITLE VARCHAR(100) NOT NULL,
+    table_nameAUTHOR VARCHAR(40) NOT NULL,
+    mobile_no VARCHAR(10) NOT NULL UNIQUE,
+    submission_date DATE,
+    PRIMARY KEY(table_nameID)
+);
+
+Diffetent data types and constraints:
+
+Character - char(0-255 Character) , varchar(0-65535), binary, text, string 
+Numerical - int , double(size,d), decimal(size,d)
+Date - date, datetime, timestamp, year, time
+
+
+Constraints in SQL
+Not null - cannot be blank
+Unique - cannot be repeated
+Primary key - qualifies not null & Unique
+Foreign Key - P Key of 1 table which is referenced in another table
+Auto Increment - auto increment the value - 1 to number of records we are dumping
+Check - Check gender = 'Female'
+Index - indexing enables system to execute/search /perform faster
+Default - default values if the target column is blank
+
+CID(PK) - Customer Master
+
+CID(FK) - Transaction table
+
+
+5.Insert columns in table using INSERT INTO command.
+syntax-INSERT INTO db_name.table_name(table_nameTITLE,table_nameAUTHOR,mobile_no,submission_date)
+
+6.Insert values in columns using VALUES command.
+syntax-VALUES('my tut','edyoda','1234567890','2022-09-20')
+
+7.make table using SELECT query.
+syntax-SELECT * FROM db_name.table_name.
+we can use SELECT COL1 COL2 COL3 FROM db_name.table_name to see certain columns.
+
+SELECT COL1 COL2 COL3 FROM db_name.table_name LIMIT 10-This will show 10 rows.
+This will create table in result grid.
+*****************----------------*************************-------------
+Day 2:
+
+8.to sort table we use ORDER BY command.
+syntax-SELECT COL1 COL2 COL3 FROM db_name.table_name Order by COL2 ASC,COL3 ASC.
+this will sort table in ascending order of COL2 and COL3.
+
+
+9.Filtering of table is done using 'where' command.
+syntax-SELECT COL1 COL2 COL3 FROM db_name.table_name where COL2='condt1' or COL2='condt2' Order by COL2 ASC,COL3 ASC.
+it will apply filter acc to condt1 and condt2.
+
+10.Another way of creating table:
+using create table command
+create table db_name.new-table_name as (
+   SELECT COL1 COL2 COL3 FROM db_name.table_name where COL2='condt1' or COL2='condt2' Order by COL2 ASC,COL3 ASC.
+)
+//'describe db_name.table_name' shows all the data types,columns and constraints of table_name in tabular form.
+
+
+11.update table using UPDATE command.
+syntax-UPDATE database.table_name
+SET GDP='xyz',             col2=''
+WHERE ID=1;
+//this will update gdp value of id=1.
+
+ALTER TABLE db_name.table_name 
+ADD GDP INT
+
+SELECT * FROM db_name.table_name 
+
+This alter command will create nwe column name GDP in the table named table_name.
+
+12.Modificatin of datatype using MODIFY command
+
+ALTER TABLE db_name.table_name 
+MODIFY COLUMN GDP VARCHAR(10)
+ this command will modify int datatype to varchar.
+
+ //to delete column we use DROP COLUMN column_name
+
+ 13.delete data using DELETE command.
+ DELETE FROM db_name.table_name WHERE id='1'
+
+ //this command will delete complete data from id 1 of db_name.table_name.
+DELETE FROM db_name.table_name-This will delete entire data of table.
+
+14.select countrycode,district and name from world.city
+where countrycode='NLD' AND (district='node' or district='holland')
+
+//the above command will show tabe data having country code as nld and district will be nose or holland.
+
+15.select countrycode,district and name from world.city
+where countrycode='NLD' AND (District IN ('node' , district='holland'))
+
+the above command will show tabe data having country code as nld and district will be nose or holland.
+
+16.select countrycode,district and name from world.city
+where countrycode='NLD' AND (ID between 5 and 20)
+
+//display database of nld countrycode having id between 5 and 20.
+
+17.select countrycode,district and name from world.city
+where district like 'k%'.
+
+//above command will give all the sistrict starting with k.
+
+18.select countrycode,district and name from world.city
+where district like '_h%'.
+
+//above command will give all the district starting with second letter as h.'_' wildcard represent single unique space.
+
+19.select countrycode,district and name from world.city
+where district like '%h%'.
+
+//returns all the district returns h at any postition.
+
+all wildcard is supported with like command in mysql.
+*****************---------------***************-------------------------------------------------------------------------------------------------
+
+Day 3:
+
+20.select countrycode,count(*)
+    From world.city
+    GROUP BY countrycode.
+
+//the above command will print count of countrycode due to count(*) and also print name of countrycode due to Group by in a single table.
+
+count(*) is a aggregation function which gives number of record.
+
+21.select countrycode,count(countrycode)
+    From world.city
+    GROUP BY countrycode
+    HAVING countrycode='AFG' or countrycode='ARG'.
+
+    //The above command will show the data table having country code as arg and afg along with their count.
+
+    //having command has same functionality as where command but is use with group by command because of order of execution.
+
+    22.select countrycode,count(countrycode)
+    From world.city
+    GROUP BY countrycode
+    HAVING count(countrycode)>10.
+
+    //the above command will give the table having countrycode count is greater than 10.
+
+
+    23.select * from world.city
+    CREATE INDEX ID_
+    ON world.city(id)
+
+select * from world.city
+
+SHOW INDEXES FROM world.city
+
+//the above command will create index have names as id_ and show in the form of table.
+
+24.select * from world.city
+    CREATE INDEX ID_
+    ON world.city(id)
+
+select * from world.city
+
+SHOW INDEXES FROM world.city
+
+create unique index ID__ ON world.city(ID)
+
+//the above command will create unique index id and show in the form of table.
+
+25. ALTER TABLE world.city
+    DROP INDEX ID_
+    //the above command will delete the index name id_ from table.
+
+
+    26. UNION is used to add 2 table.it dont print duplicate value and prints only distinct value.
+
+    UNIONALL can also add 2 table but also consider duplicate value.
+
+    both execute when number of columns and ordering of columns should be same.
+
+    27.JOINS:Used to join two tables on certain parameters.
+
+    There are 5 types of join in mysql:
+    LEFT JOIN-All the entries from left table along with common entries in right table will be there.
+    RIGHT JOIN-All the entries from right table along with common entries in left table will be there
+    INNER JOIN-only common things in both table will be there.
+    OUTER JOIN-all the record from both tables will be there.use keyword-fullouter.
+    SELF JOIN-
+
+  (a)-  left join syntax-select a.*,b.continent,b.name
+    from world.city a
+    left join world.country b ON
+    a.countrycode=b.code
+
+    explanation-the above comand will create table having all the data from world.city and common data from world.country on the basis of countrycode in 1st table is equal to code in second table.
+    note-two more columns will be added from table 2 because of b.continent,b,name.
+
+    //whatever we pass in from parameter,it is left table and whatever we pass in join,that is right table.
+
+    rest see video after 1hrs 13min in lecture 4 of mysql.
+
+
+    28.VIEWS:Used to create views of table which can be used later and show specific information to client.
+
+syntax-CREATE VIEW view_name
+AS 
+SELECT col1,col2,COL3
+FROM Table1
+INNER JOIN Table2
+ON Table1.city=Table2.id
+
+//the above command will create view of city and all other data.
+
+
+29.CREATE VIEW Studentdata
+AS 
+SELECT ID,name,course_name
+ FROM Students s INNER JOIN Courses c
+ ON s.courses=c.course_id
+
+ SELECT * FROM Studentdata
+
+ //the above command will create view of student data.
+ for detailed understanding visit yahoo baba-mysql VIEW video on youtube.
+
+ 30.candidate/composite keys:
+
+ candidate key are those columns which are containder for primary key.
+
+ composite key -primary key(col1,col2) is composite key
+
+
+ 31.normalization-it is the process of making table optimised.
+ there are 3 types of normalization:
+ (a)-1NF-each column contain one value.
+ (b)-2NF-each column should be independent of functional dependency.
+ (c)-3NF-each column should be independent of transitive dependency.
+
+
+ for more see lecture 4.
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
